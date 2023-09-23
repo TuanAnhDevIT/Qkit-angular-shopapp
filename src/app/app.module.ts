@@ -29,8 +29,8 @@ import { RegisterComponent } from './register/register.component';
   ],
   providers: [],
   bootstrap: [
-    HomeComponent,
-    // DetailProductComponent,
+    // HomeComponent, 
+    DetailProductComponent,
     // OrderComponent,
     // OrderConfirmComponent,
     // LoginComponent,
