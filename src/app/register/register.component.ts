@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+  @ViewChild('registerForm') registerForm!: NgForm;
   //Khai báo các biến tương ứng với các trường dữ liệu trong form
   phone: string;
   password: string;
@@ -28,11 +30,12 @@ export class RegisterComponent {
 
   onPhoneChange() {
     console.log(`phone typed: ${this.phone}`)
+    //how to validate ? phone must be at least 6 characters
   }
 
   register() {
     const message = `phone: ${this.phone}` +
-      `password: ${this.password} ` +
+      `password: ${this.password}` +
       `retypePassword: ${this.retypePassword}` +
       `fullName: ${this.fullName}` +
       `address: ${this.address}` +
@@ -40,5 +43,29 @@ export class RegisterComponent {
       `dateOfBirth: ${this.dateOfBirth}`;
     alert(message)
   }
+  //how to check password match ?
+  checkPasswordsMatch() {
+    if (this.password !== this.retypePassword) {
+      this.registerForm.form.controls['retypePassword'].setErrors({ 'passwordMismatch': true });
+    } else {
+      this.registerForm.form.controls['retypePassword'].setErrors(null);
+    }
+  }
+  checkAge() {
+    if (this.dateOfBirth) {
+      const today = new Date();
+      const birthDate = new Date(this.dateOfBirth);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
 
+      if (age < 18) {
+        this.registerForm.form.controls['dateOfBirth'].setErrors({ 'invalidAge': true });
+      } else {
+        this.registerForm.form.controls['dateOfBirth'].setErrors(null);
+      }
+    }
+  }
 }
