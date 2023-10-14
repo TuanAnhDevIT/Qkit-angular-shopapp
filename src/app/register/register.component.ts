@@ -2,8 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { RegisterDTO } from '../dtos/register.dto';
-
+import { RegisterDTO } from '../dtos/user/register.dto';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -11,8 +10,8 @@ import { RegisterDTO } from '../dtos/register.dto';
 })
 export class RegisterComponent {
   @ViewChild('registerForm') registerForm!: NgForm;
-  //Khai báo các biến tương ứng với các trường dữ liệu trong form
-  phone: string;
+  // Khai báo các biến tương ứng với các trường dữ liệu trong form
+  phoneNumber: string;
   password: string;
   retypePassword: string;
   fullName: string;
@@ -21,7 +20,7 @@ export class RegisterComponent {
   dateOfBirth: Date;
 
   constructor(private router: Router, private userService: UserService) {
-    this.phone = '';
+    this.phoneNumber = '';
     this.password = '';
     this.retypePassword = '';
     this.fullName = '';
@@ -32,26 +31,24 @@ export class RegisterComponent {
     //inject
 
   }
-
-  onPhoneChange() {
-    console.log(`phone typed: ${this.phone}`)
+  onPhoneNumberChange() {
+    console.log(`Phone typed: ${this.phoneNumber}`)
     //how to validate ? phone must be at least 6 characters
   }
-
   register() {
-    const message = `phone: ${this.phone}` +
+    const message = `phone: ${this.phoneNumber}` +
       `password: ${this.password}` +
       `retypePassword: ${this.retypePassword}` +
-      `fullName: ${this.fullName}` +
       `address: ${this.address}` +
+      `fullName: ${this.fullName}` +
       `isAccepted: ${this.isAccepted}` +
       `dateOfBirth: ${this.dateOfBirth}`;
-    // alert(message)
+    //alert(message);
     debugger
 
     const registerDTO: RegisterDTO = {
       "fullname": this.fullName,
-      "phone_number": this.phone,
+      "phone_number": this.phoneNumber,
       "address": this.address,
       "password": this.password,
       "retype_password": this.retypePassword,
@@ -63,7 +60,7 @@ export class RegisterComponent {
     this.userService.register(registerDTO).subscribe({
       next: (response: any) => {
         debugger
-        this.router.navigate(['/login'])
+        this.router.navigate(['/login']);
       },
       complete: () => {
         debugger
@@ -73,16 +70,15 @@ export class RegisterComponent {
       }
     })
   }
-
   //how to check password match ?
   checkPasswordsMatch() {
     if (this.password !== this.retypePassword) {
-      this.registerForm.form.controls['retypePassword'].setErrors({ 'passwordMismatch': true });
+      this.registerForm.form.controls['retypePassword']
+        .setErrors({ 'passwordMismatch': true });
     } else {
       this.registerForm.form.controls['retypePassword'].setErrors(null);
     }
   }
-
   checkAge() {
     if (this.dateOfBirth) {
       const today = new Date();
@@ -101,3 +97,4 @@ export class RegisterComponent {
     }
   }
 }
+
