@@ -1,8 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { UserService } from '../services/user.service';
-import { LoginDTO } from '../dtos/user/login.dto';
+import { UserService } from '../../services/user.service';
+import { LoginDTO } from '../../dtos/user/login.dto';
+import { LoginResponse } from '../../responses/user/login.response'
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,8 @@ export class LoginComponent {
   }
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private tokenService: TokenService
   ) { }
 
   login() {
@@ -35,8 +38,11 @@ export class LoginComponent {
       role_id: 0
     };
     this.userService.login(loginDTO).subscribe({
-      next: (response: any) => {
-        debugger;
+      next: (response: LoginResponse) => {
+        //muốn sử dụng token trong các yêu cầu API
+        debugger
+        const { token } = response
+        this.tokenService.setToken(token)
         // this.router.navigate(['/login']);
       },
       complete: () => {
