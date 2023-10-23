@@ -48,7 +48,7 @@ export class OrderComponent implements OnInit {
       note: ['dễ vữ'],
       shipping_method: ['express'],
       payment_method: ['cod']
-    });
+    })
   }
 
   ngOnInit(): void {
