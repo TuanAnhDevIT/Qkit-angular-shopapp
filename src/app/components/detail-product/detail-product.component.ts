@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
+import { CartService } from 'src/app/services/cart.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { Router } from '@angular/router';
 import { Product } from '../../models/product';
-import { environment } from 'src/app/environments/environment';
-import { CartService } from 'src/app/services/cart.service';
 import { ProductImage } from 'src/app/models/product.images';
+import { environment } from 'src/app/environments/environment';
 
 @Component({
   selector: 'app-detail-product',
@@ -33,7 +33,7 @@ export class DetailProductComponent implements OnInit {
     //const idParam = this.activatedRoute.snapshot.paramMap.get('id');
     debugger
     //this.cartService.clearCart();
-    const idParam = 9 //fake tạm 1 giá trị
+    const idParam = 10 //fake tạm 1 giá trị
     if (idParam !== null) {
       this.productId = +idParam;
     }

@@ -11,6 +11,7 @@ import { OrderConfirmComponent } from './components/order-confirm/order-confirm.
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import {
   HttpClientModule,
@@ -30,6 +31,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     RegisterComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -45,8 +47,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
   bootstrap: [
     // HomeComponent,
     // DetailProductComponent,
-    // OrderComponent,
-    OrderConfirmComponent,
+    OrderComponent,
+    // OrderConfirmComponent,
     // LoginComponent,
     // RegisterComponent
   ]
