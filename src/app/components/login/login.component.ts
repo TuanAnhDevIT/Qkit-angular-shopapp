@@ -43,6 +43,9 @@ export class LoginComponent {
         this.roles = roles;
         this.selectedRole = roles.length > 0 ? roles[0] : undefined;
       },
+      complete: () => {
+        debugger
+      },
       error: (error: any) => {
         debugger
         console.error('Error getting roles:', error);

@@ -40,7 +40,7 @@ export class OrderDetailComponent implements OnInit {
 
   getOrderDetails(): void {
     debugger
-    const orderId = 18; // Thay bằng ID của đơn hàng bạn muốn lấy.
+    const orderId = 10; // Thay bằng ID của đơn hàng bạn muốn lấy.
     this.orderService.getOrderById(orderId).subscribe({
       next: (response: any) => {
         debugger;
