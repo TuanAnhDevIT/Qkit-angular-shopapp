@@ -57,10 +57,8 @@ export class OrderComponent implements OnInit {
 
   ngOnInit(): void {
     debugger
-    if (!this.tokenService.getUserInfoFromToken() ||
-      this.tokenService.isTokenExpired()) {
-      this.router.navigate(['/']);
-    }
+    // this.cartService.clearCart();
+    this.orderData.user_id = this.tokenService.getUserId();
     // Lấy danh sách sản phẩm từ giỏ hàng
     debugger
     const cart = this.cartService.getCart();
@@ -68,6 +66,9 @@ export class OrderComponent implements OnInit {
 
     // Gọi service để lấy thông tin sản phẩm dựa trên danh sách ID
     debugger
+    if (productIds.length === 0) {
+      return;
+    }
     this.productService.getProductsByIds(productIds).subscribe({
       next: (products) => {
         debugger
@@ -117,12 +118,14 @@ export class OrderComponent implements OnInit {
         product_id: cartItem.product.id,
         quantity: cartItem.quantity
       }));
+      this.orderData.total_money = this.totalAmount;
       // Dữ liệu hợp lệ, bạn có thể gửi đơn hàng đi
       this.orderService.placeOrder(this.orderData).subscribe({
         next: (response: Order) => {
           debugger;
-          console.log('Đặt hàng thành công');
-          this.router.navigate(['/orders/', response.id]);
+          alert('Đặt hàng thành công');
+          this.cartService.clearCart();
+          this.router.navigate(['/']);
         },
         complete: () => {
           debugger;
@@ -130,7 +133,7 @@ export class OrderComponent implements OnInit {
         },
         error: (error: any) => {
           debugger;
-          console.error('Lỗi khi đặt hàng:', error);
+          alert(`Lỗi khi đặt hàng: ${error}`);
         },
       });
     } else {
