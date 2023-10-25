@@ -20,6 +20,7 @@ export class RegisterComponent {
   dateOfBirth: Date;
 
   constructor(private router: Router, private userService: UserService) {
+    debugger
     this.phoneNumber = '';
     this.password = '';
     this.retypePassword = '';

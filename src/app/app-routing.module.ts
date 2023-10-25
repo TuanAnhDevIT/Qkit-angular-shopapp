@@ -9,7 +9,7 @@ import {
 } from './components/detail-product/detail-product.component';
 import { OrderComponent } from './components/order/order.component';
 import { OrderDetailComponent } from './components/detail-order/order.detail.component';
-import { AuthGuardFn } from './components/guards/auth.guard';
+import { AuthGuardFn } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
