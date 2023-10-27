@@ -44,7 +44,6 @@ export class RegisterComponent {
       `fullName: ${this.fullName}` +
       `isAccepted: ${this.isAccepted}` +
       `dateOfBirth: ${this.dateOfBirth}`;
-    //alert(message);
     debugger
 
     const registerDTO: RegisterDTO = {
@@ -67,7 +66,8 @@ export class RegisterComponent {
         debugger
       },
       error: (error: any) => {
-        alert(`Cannot register, error: ${error.error}`)
+        // alert(`Cannot register, error: ${error.error}`);
+        this.router.navigate(['/login']);
       }
     })
   }
